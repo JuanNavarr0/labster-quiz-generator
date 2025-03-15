@@ -1,3 +1,42 @@
+/**
+ * Main stylesheet for the Labster Quiz Generator application
+ * 
+ * This CSS implements a clean, modern design with:
+ * - CSS variables for consistent theming
+ * - Responsive layout using flexbox
+ * - Visual feedback for quiz states
+ * - Focus states for accessibility
+ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  /* Color palette */
+  --primary: #000;
+  --primary-hover: #333;
+  --background: #f8f8f8;
+  --text: #222;
+  --text-light: #555;
+  --border: #ccc;
+  --light-bg: #eee;
+  
+  /* Quiz feedback colors */
+  --correct-bg: #c8e6c9;
+  --correct-border: #2e7d32;
+  --wrong-bg: #ffcdd2;
+  --wrong-border: #c62828;
+  --highlight-bg: #e3f2fd;
+  --highlight-border: #1976d2;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+}
+
+/* ---------- Base Styles ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +45,11 @@
 }
 
 body {
-  background-color: #f8f8f8;
-  color: #222;
+  background-color: var(--background);
+  color: var(--text);
 }
 
+/* ---------- Layout Structure ---------- */
 .app-container {
   position: relative;
   min-height: 100vh;
@@ -17,19 +57,22 @@ body {
   flex-direction: column;
 }
 
+/* Labster branding */
 .labster-logo {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: var(--space-md);
+  left: var(--space-md);
   height: 40px;
+  z-index: 10;
 }
 
+/* Navigation button */
 .previous-button {
   position: absolute;
   top: 3.5rem;
   left: 1.2rem;
   margin: 0;
-  background-color: #000;
+  background-color: var(--primary);
   color: #fff;
   border: none;
   border-radius: 25px;
@@ -38,26 +81,66 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap;
+  z-index: 5;
 }
 
 .previous-button:hover {
-  background-color: #333;
+  background-color: var(--primary-hover);
 }
 
+.previous-button:focus {
+  outline: 2px solid var(--primary-hover);
+  outline-offset: 2px;
+}
+
+/* Main content area */
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--space-lg);
 }
 
-.center-button {
-  display: block;
-  margin: 1rem auto 0 auto;
+.content-container {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 0 var(--space-lg);
+  text-align: center;
 }
 
+/* Error message display */
+.error-message {
+  color: var(--wrong-border);
+  background-color: var(--wrong-bg);
+  padding: var(--space-md);
+  border-radius: 8px;
+  margin: var(--space-md) auto;
+  text-align: center;
+  max-width: 600px;
+}
+
+/* Loading indicator */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.loading-spinner {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+/* ---------- Typography ---------- */
 h1 {
   font-size: 3rem;
   margin-bottom: 1.5rem;
@@ -66,94 +149,151 @@ h1 {
 .subtitle {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #555;
-  margin-bottom: 1rem;
+  color: var(--text-light);
+  margin-bottom: var(--space-md);
 }
 
-.arrow-icon {
-  margin: 1rem 0;
-  width: 40px;
-  height: 40px;
-}
-
+/* ---------- Input Elements ---------- */
 input[type="text"] {
   width: 350px;
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 25px;
   font-size: 1rem;
   outline: none;
-  margin-bottom: 3rem;
+  margin-bottom: var(--space-xxl);
   text-align: left;
 }
 
+input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Buttons ---------- */
 button {
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 25px;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
-  margin: 0.5rem;
-  transition: background-color 0.2s;
+  margin: var(--space-xs);
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
-button:hover {
-  background-color: #eee;
+button:hover:not(:disabled) {
+  background-color: var(--light-bg);
+}
+
+button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .big-button {
-  background-color: #000;
+  background-color: var(--primary);
   color: #fff;
   border: none;
+  align-items: center;
+  align-content: center;
+  display: block;
+  margin: 0 auto;
 }
 
-.big-button:hover {
-  background-color: #333;
+.big-button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.center-button {
+  margin: var(--space-lg) auto;
+}
+
+/* ---------- Home Screen Elements ---------- */
+.arrow-icon {
+  margin: var(--space-md) 0;
+  width: 40px;
+  height: 40px;
 }
 
 .suggestions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 .suggestion-btn {
   display: inline-block;
-  margin: 0.5rem auto;
+  margin: var(--space-xs) auto;
   padding: 0.6rem 1.2rem;
   white-space: nowrap;
   text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* ---------- Theory Screen Elements ---------- */
+.theory-section {
+  text-align: left;
+}
+
+.theory-section h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2.2rem;
+}
+
+.theory-section p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  text-indent: 2em;
+  margin-bottom: var(--space-lg);
+  display: block;
+}
+
+/* ---------- Quiz Elements ---------- */
 .quiz-section h2 {
   font-size: 1.6rem;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
   text-align: center;
 }
 
+.quiz-section h3 {
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+/* Center the quiz options and set spacing */
 .options-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem 0;
+  margin: var(--space-md) 0 var(--space-xxl) 0;
 }
 
+/* Quiz option buttons */
 .option-btn {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 400px;  /* fixed width for consistency */
+  width: 400px;
   padding: 0.75rem 1.5rem;
   background-color: #fff;
   border: 2px solid #666;
   border-radius: 40px;
-  margin: 0.5rem 0;
-  transition: background-color 0.2s;
-  white-space: normal;   /* wrap text to next line if it's too long */
-  word-wrap: break-word; /* ensures long words or strings won't overflow */
+  margin: var(--space-xs) 0;
+  transition: all 0.2s ease;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
 }
 
 .option-btn.selected {
@@ -167,18 +307,80 @@ button:hover {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: #000;
-  color: #fff;
-  margin-right: 1rem;
+  background-color: var(--primary);
+  color: white;
+  margin-right: var(--space-md);
   font-weight: bold;
   flex-shrink: 0;
+  opacity: 1 !important;
 }
 
+/* Quiz option states */
+.selected-correct {
+  background-color: var(--correct-bg);
+  border-color: var(--correct-border);
+  color: black; 
+}
+
+.selected-wrong {
+  background-color: var(--wrong-bg);
+  border-color: var(--wrong-border);
+  color: black;
+}
+
+.correct-answer {
+  background-color: var(--highlight-bg);
+  border-color: var(--highlight-border);
+  color: black; 
+}
+
+/* Footer styling */
 .footer {
-  position: absolute;
-  bottom: 1rem;
   width: 100%;
   text-align: center;
   font-size: 0.9rem;
   color: #666;
+  padding: var(--space-md);
+  margin-top: auto;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .option-btn {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-container {
+    padding: 0 var(--space-md);
+    margin: 2rem auto;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .previous-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .theory-section h2 {
+    font-size: 1.6rem;
+  }
 }
