@@ -13,13 +13,6 @@ This application integrates a React frontend with a FastAPI backend to create an
 
 ## Technical Architecture
 
-### Backend (FastAPI)
-
-The backend is built with FastAPI and provides two main endpoints:
-
-- `/theory/generate_theory` - Generates scientifically verified theoretical content
-- `/quiz/generate_quiz` - Creates multiple-choice questions with scientific verification
-
 The application uses a Retrieval-Augmented Generation (RAG) system to ensure scientific accuracy:
 
 - **Vector Database**: Stores embeddings of OpenStax textbook content
@@ -27,15 +20,7 @@ The application uses a Retrieval-Augmented Generation (RAG) system to ensure sci
 - **Enhanced Prompts**: Augments LLM prompts with verified scientific information
 - **Verification Logic**: Assesses confidence in scientific accuracy of responses
 
-The backend leverages OpenAI's GPT models combined with the RAG system to generate high-quality, scientifically accurate educational content and quiz questions.
-
-### Frontend (React)
-
-The frontend provides an intuitive user interface with three main screens:
-
-1. **Input Screen** - Users enter or select a learning objective
-2. **Theory Screen** - Displays the generated theoretical content
-3. **Quiz Screen** - Presents interactive multiple-choice questions with grading
+The application leverages OpenAI's GPT models combined with the RAG system to generate high-quality, scientifically accurate educational content and quiz questions.
 
 ## Features
 
@@ -55,40 +40,79 @@ The frontend provides an intuitive user interface with three main screens:
 - Node.js (v16+)
 - Python (v3.9+)
 - An OpenAI API key
+- Conda (for installing FAISS)
 
-### Backend Setup
+### Setup
 
-1. Navigate to the backend directory
-2. Create a virtual environment: `python -m venv venv`
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/JuanNavarr0/labster-quiz-generator.git
+   cd labster-quiz-generator
+   ```
+
+2. Create a virtual environment in the root directory:
+
+   ```
+   python -m venv venv
+   ```
+
 3. Activate the virtual environment:
+
    - Windows: `venv\Scripts\activate`
    - macOS/Linux: `source venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Create a `.env` file with your OpenAI API key:
+
+4. Install dependencies:
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+5. Install FAISS using Conda (important, as it may not install correctly via pip):
+
+   ```
+   conda install -c pytorch faiss-cpu
+   ```
+
+6. Create a `.env` file in the root directory with your OpenAI API key:
+
    ```
    OPENAI_API_KEY=your_api_key_here
    ```
-6. Process textbooks for the RAG system:
+
+7. Set up the frontend:
 
    ```
-   python -m scripts.process_textbooks --source_dir "path/to/your/textbooks" --output_dir "data"
+   cd frontend
+   npm install
+   cd ..
    ```
 
-   This will:
+8. Start the application:
 
-   - Extract text from PDF textbooks
-   - Process and clean the content
-   - Create embeddings using sentence-transformers
-   - Build a FAISS vector index for efficient retrieval
+   - In one terminal window (from the root directory), start the server:
+     ```
+     uvicorn app.main:app --reload
+     ```
+   - In another terminal window (from the frontend directory):
+     ```
+     cd frontend
+     npm run dev
+     ```
 
-7. Start the FastAPI server: `uvicorn app.main:app --reload`
+9. Access the application at `http://localhost:5173`
 
-### Frontend Setup
+## Textbooks
 
-1. Navigate to the frontend directory
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
-4. Access the application at `http://localhost:5173`
+This project uses OpenStax textbooks for the RAG system. Download these textbooks and place them in the `textbooks/` directory before running the application:
+
+- [University Physics Vol 1](https://openstax.org/details/books/university-physics-volume-1)
+- [University Physics Vol 2](https://openstax.org/details/books/university-physics-volume-2)
+- [Biology 2e](https://openstax.org/details/books/biology-2e)
+- [Chemistry 2e](https://openstax.org/details/books/chemistry-2e)
+- [Anatomy and Physiology](https://openstax.org/details/books/anatomy-and-physiology-2e)
+- [Organic Chemistry](https://openstax.org/details/books/organic-chemistry)
+- [Microbiology](https://openstax.org/details/books/microbiology)
 
 ## Deployment
 
@@ -124,6 +148,21 @@ The React application can be deployed to:
 2. Upload the build directory to an S3 bucket
 3. Configure CloudFront for distribution
 
+## Advanced: Adding More Textbooks (Optional)
+
+If you want to enhance the RAG system with additional textbooks, you can process them using:
+
+```
+python -m scripts.process_textbooks --source_dir "path/to/your/textbooks" --output_dir "data"
+```
+
+This will:
+
+- Extract text from PDF textbooks
+- Process and clean the content
+- Create embeddings using sentence-transformers
+- Build a FAISS vector index for efficient retrieval
+
 ## Code Structure
 
 ### Backend Files
@@ -140,9 +179,9 @@ The React application can be deployed to:
 
 ### Frontend Files
 
-- `main.jsx` - React application entry point
-- `App.jsx` - Main application component with state management
-- `App.css` - Styling with responsive design
+- `frontend/src/main.jsx` - React application entry point
+- `frontend/src/App.jsx` - Main application component with state management
+- `frontend/src/App.css` - Styling with responsive design
 
 ## Development Decisions
 
@@ -198,15 +237,3 @@ The React application can be deployed to:
 ## Author
 
 Juan Navarro Muñoz
-
-## Textbooks
-
-This project uses OpenStax textbooks for the RAG system. Download these textbooks and place them in the `textbooks/` directory before running the textbook processing script:
-
-- [University Physics Vol 1](https://openstax.org/details/books/university-physics-volume-1)
-- [University Physics Vol 2](https://openstax.org/details/books/university-physics-volume-2)
-- [Biology 2e](https://openstax.org/details/books/biology-2e)
-- [Chemistry 2e](https://openstax.org/details/books/chemistry-2e)
-- [Anatomy and Physiology](https://openstax.org/details/books/anatomy-and-physiology-2e)
-- [Organic Chemistry](https://openstax.org/details/books/organic-chemistry)
-- [Microbiology](https://openstax.org/details/books/microbiology)
