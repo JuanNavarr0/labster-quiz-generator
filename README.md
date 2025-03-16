@@ -1,200 +1,212 @@
 # Labster Quiz Generator
 
-Una aplicación web moderna que genera contenido educativo y cuestionarios interactivos basados en objetivos de aprendizaje utilizando tecnología LLM.
+A modern web application that generates educational content and interactive quizzes based on learning objectives using LLM technology.
 
-## Descripción del Proyecto
+## Project Overview
 
-Esta aplicación integra un frontend en React con un backend en FastAPI para crear una herramienta educativa que:
+This application integrates a React frontend with a FastAPI backend to create an educational tool that:
 
-1. Recibe un objetivo de aprendizaje como entrada
-2. Genera un resumen teórico del tema
-3. Crea preguntas de opción múltiple para evaluar la comprensión
-4. Califica las respuestas del usuario y proporciona retroalimentación
+1. Takes a learning objective as input
+2. Generates a theoretical summary of the topic
+3. Creates multiple-choice quiz questions to test understanding
+4. Grades user responses and provides feedback
 
-## Arquitectura Técnica
+## Technical Architecture
 
 ### Backend (FastAPI)
 
-El backend está construido con FastAPI y proporciona dos endpoints principales:
+The backend is built with FastAPI and provides two main endpoints:
 
-- `/theory/generate_theory` - Genera contenido teórico verificado científicamente
-- `/quiz/generate_quiz` - Crea preguntas de opción múltiple con verificación científica
+- `/theory/generate_theory` - Generates scientifically verified theoretical content
+- `/quiz/generate_quiz` - Creates multiple-choice questions with scientific verification
 
-La aplicación utiliza un sistema de Generación Aumentada por Recuperación (RAG) para garantizar la precisión científica:
+The application uses a Retrieval-Augmented Generation (RAG) system to ensure scientific accuracy:
 
-- **Base de Datos Vectorial**: Almacena embeddings del contenido de libros de texto OpenStax
-- **Sistema de Recuperación**: Encuentra contenido científico relevante para cada consulta
-- **Prompts Mejorados**: Aumenta los prompts de LLM con información científica verificada
-- **Lógica de Verificación**: Evalúa la confianza en la precisión científica de las respuestas
+- **Vector Database**: Stores embeddings of OpenStax textbook content
+- **Retrieval System**: Finds relevant scientific content for each query
+- **Enhanced Prompts**: Augments LLM prompts with verified scientific information
+- **Verification Logic**: Assesses confidence in scientific accuracy of responses
 
-El backend aprovecha los modelos GPT de OpenAI combinados con el sistema RAG para generar contenido educativo y preguntas de cuestionario de alta calidad y precisión científica.
+The backend leverages OpenAI's GPT models combined with the RAG system to generate high-quality, scientifically accurate educational content and quiz questions.
 
 ### Frontend (React)
 
-El frontend proporciona una interfaz de usuario intuitiva con tres pantallas principales:
+The frontend provides an intuitive user interface with three main screens:
 
-1. **Pantalla de Entrada** - Los usuarios ingresan o seleccionan un objetivo de aprendizaje
-2. **Pantalla de Teoría** - Muestra el contenido teórico generado
-3. **Pantalla de Cuestionario** - Presenta preguntas interactivas de opción múltiple con calificación
+1. **Input Screen** - Users enter or select a learning objective
+2. **Theory Screen** - Displays the generated theoretical content
+3. **Quiz Screen** - Presents interactive multiple-choice questions with grading
 
-## Características
+## Features
 
-- **Entrada de Objetivo de Aprendizaje**: Los usuarios pueden escribir su propio objetivo de aprendizaje o seleccionar entre temas sugeridos
-- **Generación Dinámica de Contenido**: El contenido educativo se genera bajo demanda usando IA
-- **Verificación Científica**: El contenido se verifica con fuentes de libros de texto utilizando tecnología RAG
-- **Cuestionario Interactivo**: Preguntas de opción múltiple con retroalimentación inmediata
-- **Diseño Responsivo**: Funciona en dispositivos de escritorio y móviles
-- **Navegación**: Flujo intuitivo entre estados de la aplicación
-- **Manejo de Errores**: Retroalimentación clara para solicitudes API fallidas o problemas de validación
-- **Indicadores de Calidad**: Advertencias transparentes cuando el contenido no puede ser completamente verificado con fuentes científicas
+- **Learning Objective Input**: Users can type their own learning objective or select from suggested topics
+- **Dynamic Content Generation**: Educational content is generated on demand using AI
+- **Scientific Verification**: Content is verified against textbook sources using RAG technology
+- **Interactive Quiz**: Multiple-choice questions with immediate feedback
+- **Responsive Design**: Works on desktop and mobile devices
+- **Navigation**: Intuitive flow between application states
+- **Error Handling**: Clear feedback for failed API requests or validation issues
+- **Quality Indicators**: Transparent warnings when content can't be fully verified with scientific sources
 
-## Comenzando
+## Getting Started
 
-### Requisitos Previos
+### Prerequisites
 
 - Node.js (v16+)
 - Python (v3.9+)
-- Una clave API de OpenAI
+- An OpenAI API key
 
-### Configuración del Backend
+### Backend Setup
 
-1. Navega al directorio del backend
-2. Crea un entorno virtual: `python -m venv venv`
-3. Activa el entorno virtual:
+1. Navigate to the backend directory
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment:
    - Windows: `venv\Scripts\activate`
    - macOS/Linux: `source venv/bin/activate`
-4. Instala las dependencias: `pip install -r requirements.txt`
-5. Crea un archivo `.env` con tu clave API de OpenAI:
+4. Install dependencies: `pip install -r requirements.txt`
+5. Create a `.env` file with your OpenAI API key:
    ```
-   OPENAI_API_KEY=tu_clave_api_aquí
+   OPENAI_API_KEY=your_api_key_here
    ```
-6. Procesa los libros de texto para el sistema RAG:
+6. Process textbooks for the RAG system:
 
    ```
-   python -m scripts.process_textbooks --source_dir "ruta/a/tus/libros" --output_dir "data"
+   python -m scripts.process_textbooks --source_dir "path/to/your/textbooks" --output_dir "data"
    ```
 
-   Esto:
+   This will:
 
-   - Extraerá texto de libros de texto PDF
-   - Procesará y limpiará el contenido
-   - Creará embeddings utilizando sentence-transformers
-   - Construirá un índice vectorial FAISS para una recuperación eficiente
+   - Extract text from PDF textbooks
+   - Process and clean the content
+   - Create embeddings using sentence-transformers
+   - Build a FAISS vector index for efficient retrieval
 
-7. Inicia el servidor FastAPI: `uvicorn app.main:app --reload`
+7. Start the FastAPI server: `uvicorn app.main:app --reload`
 
-### Configuración del Frontend
+### Frontend Setup
 
-1. Navega al directorio del frontend
-2. Instala las dependencias: `npm install`
-3. Inicia el servidor de desarrollo: `npm run dev`
-4. Accede a la aplicación en `http://localhost:5173`
+1. Navigate to the frontend directory
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+4. Access the application at `http://localhost:5173`
 
-## Despliegue
+## Deployment
 
-### Despliegue del Backend
+### Backend Deployment
 
-La aplicación FastAPI puede desplegarse en varias plataformas en la nube:
+The FastAPI application can be deployed to various cloud platforms:
 
 **Heroku**:
 
-1. Crea un archivo Procfile con: `web: uvicorn app.main:app --host=0.0.0.0 --port=${PORT:-5000}`
-2. Establece variables de entorno en el panel de Heroku
-3. Despliega usando Heroku CLI o integración con GitHub
+1. Create a Procfile with: `web: uvicorn app.main:app --host=0.0.0.0 --port=${PORT:-5000}`
+2. Set environment variables in the Heroku dashboard
+3. Deploy using the Heroku CLI or GitHub integration
 
-**AWS (usando Elastic Beanstalk)**:
+**AWS (using Elastic Beanstalk)**:
 
-1. Crea un entorno de Elastic Beanstalk con la plataforma Python
-2. Configura variables de entorno para la clave API de OpenAI
-3. Despliega usando EB CLI o la consola AWS
+1. Create an Elastic Beanstalk environment with the Python platform
+2. Configure environment variables for the OpenAI API key
+3. Deploy using the EB CLI or AWS console
 
-### Despliegue del Frontend
+### Frontend Deployment
 
-La aplicación React puede desplegarse en:
+The React application can be deployed to:
 
 **Vercel/Netlify**:
 
-1. Conecta tu repositorio GitHub
-2. Establece el comando de build como `npm run build`
-3. Configura variables de entorno si es necesario
+1. Connect your GitHub repository
+2. Set the build command to `npm run build`
+3. Configure environment variables if needed
 
 **AWS S3 + CloudFront**:
 
-1. Construye la aplicación: `npm run build`
-2. Sube el directorio build a un bucket S3
-3. Configura CloudFront para la distribución
+1. Build the application: `npm run build`
+2. Upload the build directory to an S3 bucket
+3. Configure CloudFront for distribution
 
-## Estructura del Código
+## Code Structure
 
-### Archivos del Backend
+### Backend Files
 
-- `main.py` - Punto de entrada de la aplicación y configuración de FastAPI
-- `app/api/quiz_endpoints.py` - Endpoint de generación de cuestionarios con verificación científica
-- `app/api/theory_endpoints.py` - Endpoint de generación de teoría con verificación científica
-- `app/core/openai_client.py` - Integración de API de OpenAI con mejora RAG
-- `app/core/rag_system.py` - Implementación central de RAG para verificación científica
-- `app/models/quiz_models.py` - Modelos Pydantic para validación de solicitud/respuesta
-- `app/models/rag_models.py` - Modelos Pydantic para el sistema RAG
-- `app/utils/document_processor.py` - Utilidades para procesar contenido de libros de texto
-- `scripts/process_textbooks.py` - Script para procesar libros de texto y construir la base de datos vectorial
+- `main.py` - Application entry point and FastAPI configuration
+- `app/api/quiz_endpoints.py` - Quiz generation endpoint with scientific verification
+- `app/api/theory_endpoints.py` - Theory generation endpoint with scientific verification
+- `app/core/openai_client.py` - OpenAI API integration with RAG enhancement
+- `app/core/rag_system.py` - Core RAG implementation for scientific verification
+- `app/models/quiz_models.py` - Pydantic models for request/response validation
+- `app/models/rag_models.py` - Pydantic models for the RAG system
+- `app/utils/document_processor.py` - Utilities for processing textbook content
+- `scripts/process_textbooks.py` - Script to process textbooks and build the vector database
 
-### Archivos del Frontend
+### Frontend Files
 
-- `main.jsx` - Punto de entrada de la aplicación React
-- `App.jsx` - Componente principal de la aplicación con gestión de estado
-- `App.css` - Estilos con diseño responsivo
+- `main.jsx` - React application entry point
+- `App.jsx` - Main application component with state management
+- `App.css` - Styling with responsive design
 
-## Decisiones de Desarrollo
+## Development Decisions
 
-1. **Diseño UI/UX**:
+1. **UI/UX Design**:
 
-   - Diseño limpio y minimalista centrado en el contenido
-   - Flujo paso a paso para una mejor experiencia de usuario
-   - Retroalimentación visual para respuestas de cuestionario
-   - Indicadores de advertencia transparentes para verificación científica
+   - Clean, minimalist design focused on content
+   - Step-by-step flow for better user experience
+   - Visual feedback for quiz answers
+   - Transparent warning indicators for scientific verification
 
-2. **Estructura de API**:
+2. **API Structure**:
 
-   - Endpoints separados para teoría y cuestionarios por modularidad
-   - Uso de modelos Pydantic para validación de solicitudes
-   - Implementación de manejo de errores para operación robusta
-   - Respuestas mejoradas con metadatos de verificación científica
+   - Separated theory and quiz endpoints for modularity
+   - Used Pydantic models for request validation
+   - Implemented error handling for robust operation
+   - Enhanced responses with scientific verification metadata
 
-3. **Gestión de Estado**:
+3. **State Management**:
 
-   - Uso de useState de React para el estado de la aplicación
-   - Clara separación de estados UI (entrada, teoría, cuestionario)
-   - Flujo de datos manejable entre componentes
+   - Used React's useState for application state
+   - Clear separation of UI states (input, theory, quiz)
+   - Manageable data flow between components
 
-4. **Verificación Científica**:
-   - Uso de sentence-transformers para embedding local y reducir costos de API
-   - Implementación de FAISS para búsqueda vectorial eficiente
-   - Desarrollo de un sistema de puntuación de confianza para determinar cuándo se necesitan advertencias
-   - Prompts LLM mejorados con contenido científico relevante de libros de texto
+4. **Scientific Verification**:
+   - Used sentence-transformers for local embedding to reduce API costs
+   - Implemented FAISS for efficient vector search
+   - Developed a confidence scoring system to determine when warnings are needed
+   - Enhanced LLM prompts with relevant scientific content from textbooks
 
-## Mejoras Futuras
+## Future Improvements
 
-1. **Recuperación Mejorada de Errores**:
+1. **Enhanced Error Recovery**:
 
-   - Implementar mecanismos de reintento para fallos de API
-   - Añadir mensajes de error más detallados
+   - Implement retry mechanisms for API failures
+   - Add more detailed error messages
 
-2. **Mejoras de UI**:
+2. **UI Enhancements**:
 
-   - Animaciones para transiciones entre pantallas
-   - Indicadores de progreso para completar cuestionarios
-   - Retroalimentación más detallada para resultados de cuestionarios
+   - Animations for transitions between screens
+   - Progress indicators for quiz completion
+   - More detailed feedback for quiz results
 
-3. **Optimizaciones de Rendimiento**:
+3. **Performance Optimizations**:
 
-   - Implementar caché para contenido generado
-   - Optimizar llamadas API para tiempos de respuesta más rápidos
+   - Implement caching for generated content
+   - Optimize API calls for faster response times
 
-4. **Características Adicionales**:
-   - Soporte para diferentes tipos de preguntas (no solo opción múltiple)
-   - Funcionalidad de guardar/exportar para contenido generado
-   - Cuentas de usuario para seguir el progreso de aprendizaje
+4. **Additional Features**:
+   - Support for different question types (not just multiple choice)
+   - Save/export functionality for generated content
+   - User accounts to track learning progress
 
-## Autor
+## Author
 
 Juan Navarro Muñoz
+
+## Textbooks
+
+This project uses OpenStax textbooks for the RAG system. Download these textbooks and place them in the `textbooks/` directory before running the textbook processing script:
+
+- [University Physics Vol 1](https://openstax.org/details/books/university-physics-volume-1)
+- [University Physics Vol 2](https://openstax.org/details/books/university-physics-volume-2)
+- [Biology 2e](https://openstax.org/details/books/biology-2e)
+- [Chemistry 2e](https://openstax.org/details/books/chemistry-2e)
+- [Anatomy and Physiology](https://openstax.org/details/books/anatomy-and-physiology-2e)
+- [Organic Chemistry](https://openstax.org/details/books/organic-chemistry)
+- [Microbiology](https://openstax.org/details/books/microbiology)
