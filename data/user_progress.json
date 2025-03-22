@@ -46,5 +46,13 @@
     "notes": "Nota de testeo",
     "difficulty": "medium",
     "time_spent": "00:07"
+  },
+  {
+    "topic": "Balance chemical reactions using the law of conservation of mass",
+    "score": 0.0,
+    "date": "2025-03-22",
+    "notes": "",
+    "difficulty": "hard",
+    "time_spent": "00:12"
   }
 ]

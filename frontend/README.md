@@ -1,6 +1,6 @@
-# Labster Quiz Generator Frontend
+# Educational Quiz Generator Frontend
 
-This is the frontend for the Labster Quiz Generator application, developed with React and Vite.
+This is the frontend for the Educational Quiz Generator application, developed with React and Vite.
 
 ## Complete Project Information
 

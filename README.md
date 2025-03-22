@@ -1,4 +1,4 @@
-# Labster Quiz Generator
+# Educational Quiz Generator
 
 A modern web application that generates educational content and interactive quizzes based on learning objectives using LLM technology.
 
@@ -194,10 +194,6 @@ The React application can be deployed to:
    - Support for different question types (not just multiple choice)
    - Save/export functionality for generated content
    - User accounts to track learning progress
-
-## Author
-
-Juan Navarro Muñoz
 
 ## Textbooks
 

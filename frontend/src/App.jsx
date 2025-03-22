@@ -1,7 +1,7 @@
 /**
  * App.jsx
  *
- * Application component for the Labster Quiz Generator
+ * Application component for the Educational Quiz Generator
  *
  * This component manages the entire user flow:
  * 1. Initial input screen - User inputs or selects a learning objective
@@ -730,7 +730,6 @@ function App() {
     <div className={`app-container ${darkMode ? 'dark-theme' : ''}`}>
       {/* App Header with Logo and Controls */}
       <header className="app-header">
-        <img src="/labster.png" alt="Labster Logo" className="labster-logo" />
         
         {!theory && !showQuiz && !showHistory && (
           <div className="header-controls">
@@ -1442,7 +1441,7 @@ function App() {
       </div>
 
       <div className="footer">
-        <div>2025 Labster Quiz Prototype - Machine Learning - Juan Navarro Muñoz</div>
+        <div>2025 Educational Quiz Prototype - Juan Navarro Muñoz</div>
       </div>
     </div>
   );
