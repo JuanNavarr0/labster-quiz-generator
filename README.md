@@ -1,8 +1,27 @@
 # Educational Quiz Generator
 
-A modern web application that generates educational content and interactive quizzes based on learning objectives using LLM technology.
+![GitHub stars](https://img.shields.io/github/stars/JuanNavarr0/educational-quiz-generator?style=social)
+![OpenAI](https://img.shields.io/badge/AI-OpenAI-blue?logo=openai)
+![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-blue?logo=fastapi)
 
-## Project Overview
+A modern web application that generates educational content and interactive quizzes based on learning objectives using LLM technology enhanced with Retrieval-Augmented Generation (RAG).
+
+## 📋 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Technical Architecture](#technical-architecture)
+- [Getting Started](#getting-started)
+- [Textbooks](#textbooks)
+- [Deployment](#deployment)
+- [Code Structure](#code-structure)
+- [Development Decisions](#development-decisions)
+- [Future Improvements](#future-improvements)
+- [Author](#author)
+
+## 🔍 Project Overview
 
 This application integrates a React frontend with a FastAPI backend to create an educational tool that:
 
@@ -11,18 +30,7 @@ This application integrates a React frontend with a FastAPI backend to create an
 3. Creates multiple-choice quiz questions to test understanding
 4. Grades user responses and provides feedback
 
-## Technical Architecture
-
-The application uses a Retrieval-Augmented Generation (RAG) system to ensure scientific accuracy:
-
-- **Vector Database**: Stores embeddings of OpenStax textbook content
-- **Retrieval System**: Finds relevant scientific content for each query
-- **Enhanced Prompts**: Augments LLM prompts with verified scientific information
-- **Verification Logic**: Assesses confidence in scientific accuracy of responses
-
-The application leverages OpenAI's GPT models combined with the RAG system to generate high-quality, scientifically accurate educational content and quiz questions.
-
-## Features
+## ✨ Features
 
 - **Learning Objective Input**: Users can type their own learning objective or select from suggested topics
 - **Dynamic Content Generation**: Educational content is generated on demand using AI
@@ -33,7 +41,40 @@ The application leverages OpenAI's GPT models combined with the RAG system to ge
 - **Error Handling**: Clear feedback for failed API requests or validation issues
 - **Quality Indicators**: Transparent warnings when content can't be fully verified with scientific sources
 
-## Getting Started
+## 📸 Screenshots
+
+### Learning Objective Selection
+
+<img src="./assets/images/home-screen.png" alt="Home Screen" width="800" />
+*Select your learning objective and difficulty level.*
+
+### AI-Generated Educational Content
+
+<img src="./assets/images/theory-screen.png" alt="Theory Content" width="800" />
+*Learn the theory with AI-generated educational content and take notes.*
+
+### Interactive Quiz
+
+<img src="./assets/images/quiz-screen.png" alt="Quiz Questions" width="800" />
+*Test your knowledge with multiple-choice questions on the topic.*
+
+### Results and Feedback
+
+<img src="./assets/images/quiz-results.png" alt="Quiz Results" width="800" />
+*See your score and review your performance.*
+
+## 🏗️ Technical Architecture
+
+The application uses a Retrieval-Augmented Generation (RAG) system to ensure scientific accuracy:
+
+- **Vector Database**: Stores embeddings of OpenStax textbook content
+- **Retrieval System**: Finds relevant scientific content for each query
+- **Enhanced Prompts**: Augments LLM prompts with verified scientific information
+- **Verification Logic**: Assesses confidence in scientific accuracy of responses
+
+The application leverages OpenAI's GPT models combined with the RAG system to generate high-quality, scientifically accurate educational content and quiz questions.
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -46,14 +87,14 @@ The application leverages OpenAI's GPT models combined with the RAG system to ge
 
 1. Clone the repository:
 
-   ```
+   ```bash
    git clone https://github.com/JuanNavarr0/educational-quiz-generator.git
    cd educational-quiz-generator
    ```
 
 2. Create a virtual environment in the root directory:
 
-   ```
+   ```bash
    python -m venv venv
    ```
 
@@ -64,13 +105,13 @@ The application leverages OpenAI's GPT models combined with the RAG system to ge
 
 4. Install dependencies:
 
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
 5. Install FAISS using Conda (important, as it may not install correctly via pip):
 
-   ```
+   ```bash
    conda install -c pytorch faiss-cpu
    ```
 
@@ -82,7 +123,7 @@ The application leverages OpenAI's GPT models combined with the RAG system to ge
 
 7. Set up the frontend:
 
-   ```
+   ```bash
    cd frontend
    npm install
    cd ..
@@ -91,18 +132,18 @@ The application leverages OpenAI's GPT models combined with the RAG system to ge
 8. Start the application:
 
    - In one terminal window (from the root directory), start the server:
-     ```
+     ```bash
      uvicorn app.main:app --reload
      ```
    - In another terminal window (from the frontend directory):
-     ```
+     ```bash
      cd frontend
      npm run dev
      ```
 
 9. Access the application at `http://localhost:5173`
 
-## Textbooks
+## 📚 Textbooks
 
 This project uses OpenStax textbooks for the RAG system. Download these textbooks and place them in the `textbooks/` directory before running the application:
 
@@ -114,7 +155,7 @@ This project uses OpenStax textbooks for the RAG system. Download these textbook
 - [Organic Chemistry](https://openstax.org/details/books/organic-chemistry)
 - [Microbiology](https://openstax.org/details/books/microbiology)
 
-## Deployment
+## 🌐 Deployment
 
 ### Backend Deployment
 
@@ -148,22 +189,7 @@ The React application can be deployed to:
 2. Upload the build directory to an S3 bucket
 3. Configure CloudFront for distribution
 
-## Advanced: Adding More Textbooks (Optional)
-
-If you want to enhance the RAG system with additional textbooks, you can process them using:
-
-```
-python -m scripts.process_textbooks --source_dir "path/to/your/textbooks" --output_dir "data"
-```
-
-This will:
-
-- Extract text from PDF textbooks
-- Process and clean the content
-- Create embeddings using sentence-transformers
-- Build a FAISS vector index for efficient retrieval
-
-## Code Structure
+## 📁 Code Structure
 
 ### Backend Files
 
@@ -183,7 +209,7 @@ This will:
 - `frontend/src/App.jsx` - Main application component with state management
 - `frontend/src/App.css` - Styling with responsive design
 
-## Development Decisions
+## 🧠 Development Decisions
 
 1. **UI/UX Design**:
 
@@ -211,7 +237,7 @@ This will:
    - Developed a confidence scoring system to determine when warnings are needed
    - Enhanced LLM prompts with relevant scientific content from textbooks
 
-## Future Improvements
+## 🔮 Future Improvements
 
 1. **Enhanced Error Recovery**:
 
@@ -234,6 +260,12 @@ This will:
    - Save/export functionality for generated content
    - User accounts to track learning progress
 
-## Author
+## 👨‍💻 Author
 
 Juan Navarro Muñoz
+
+---
+
+<p align="center">
+  Made with ❤️ for education
+</p>
